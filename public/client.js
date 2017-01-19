@@ -8,7 +8,8 @@ function getSongs() {
   $.ajax({
     url: '/songs',
     type: 'GET',
-    success: displaySongs
+    success: displaySongs,
+
   })
 }
 
@@ -25,8 +26,9 @@ function addSong(event) {
     url: '/songs',
     type: 'POST',
     data: songData,
-    success: getSongs
-  })
+    success: getSongs,
+    error: displayMessage
+  });
 }
 
 function displaySongs(songs) {
@@ -37,4 +39,7 @@ $('#songs').empty();
   songs.forEach(function(song) {
     $('#songs').append('<li>' + song.title + ' by ' + song.artist + ' from album ' + song.album + ' added '+song.dateAdded +'</li>');
   });
+}
+ function displayMessage() {
+  alert("You have entered duplicate songs or you didn't fill out one of the blanks.");
 }
